@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.mapper.UserMapper">
+
+    <resultMap id="UserMapper" type="com.github.domain.User">
+        <id property="id" column="id"/>
+        <result property="userName" column="user_name"/>
+        <result property="balance" column="balance"/>
+        <result property="mobile" column="mobile"/>
+        <result property="email" column="email"/>
+        <result property="fistVisitTime" column="first_visit_time"/>
+        <result property="lastVisitTime" column="last_visit_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="user_columns">
+        id,user_name,balance,mobile,email,first_visit_time,last_visit_time,create_time,update_time
+    </sql>
+
+    <select id="selectUserById" parameterType="long" resultMap="UserMapper">
+        SELECT <include refid="user_columns"/> from user where id = #{id}
+    </select>
+
+    <select id="selectUserByUserNameAndMobile" resultMap="UserMapper">
+        SELECT <include refid="user_columns"/> from user where user_name = #{userName} and mobile = #{mobile} limit 1
+    </select>
+
+    <update id="updateUserBalance">
+        UPDATE user
+        <set>
+            update_time = now(),
+            <if test="type gt 0">
+                balance = balance + #{amount},
+            </if>
+            <if test="type lt 0">
+                balance = balance - #{amount},
+            </if>
+        </set>
+        WHERE user_name = #{userName}
+    </update>
+
+</mapper>
+ 
