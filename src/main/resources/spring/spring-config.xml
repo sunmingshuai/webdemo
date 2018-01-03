@@ -27,15 +27,28 @@
     <aop:aspectj-autoproxy expose-proxy="true"/>
 
     <!-- idea使用tx命名空间 要注意tx命名空间的引入 idea会使用cache命名空间  -->
-    <tx:annotation-driven proxy-target-class="true"/>
+    <tx:annotation-driven/>
 
     <context:property-placeholder ignore-unresolvable="true" order="2" location="classpath:config-sunms-dev.properties"/>
 
 
 
-    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+    <bean id="mobileDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driver}"/>
-        <property name="url" value="${jdbc.url}"/>
+        <property name="url" value="${mobile.jdbc.url}"/>
+        <property name="username" value="${jdbc.user}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <property name="maxTotal" value="${maxTotal}"/>
+        <property name="maxIdle" value="${maxIdle}"/>
+        <property name="initialSize" value="5"/>
+        <!-- 为了debug正常 把查询最大时间设大点 -->
+        <property name="defaultQueryTimeout" value="3600000"/>
+    </bean>
+
+    <bean id="logDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${log.jdbc.url}"/>
         <property name="username" value="${jdbc.user}"/>
         <property name="password" value="${jdbc.password}"/>
 
@@ -47,9 +60,8 @@
     </bean>
 
 
-    <!--  TODO -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
+        <property name="dataSource" ref="mobileDataSource"/>
         <!-- 允许嵌套事务 -->
         <property name="nestedTransactionAllowed" value="true" />
     </bean>
@@ -57,7 +69,7 @@
 
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
+        <property name="dataSource" ref="mobileDataSource"/>
         <!--<property name="transactionFactory" ref="transactionFactory"/>-->
         <property name="configLocation" value="classpath:mybatis-configuration.xml"/>
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
@@ -74,19 +86,5 @@
         <property name="basePackage" value="com.github.mapper"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
-
-
-
-    <!--&lt;!&ndash; 正式环境配置 配置放到正式服务器&ndash;&gt;-->
-    <!--&lt;!&ndash; 如果是测试环境配置 配置就放到测试服务器&ndash;&gt;-->
-    <!--<bean id="release_propertyPlace" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
-    <!--<property name="order" value="1"/>-->
-    <!--<property name="ignoreUnresolvablePlaceholders" value="true" />-->
-    <!--<property name="locations">-->
-    <!--<list>-->
-    <!--<value>file:${user.home}/conifg/config-sunms-release.properties</value>-->
-    <!--</list>-->
-    <!--</property>-->
-    <!--</bean>-->
 
 </beans>
