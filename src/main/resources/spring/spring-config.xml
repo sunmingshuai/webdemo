@@ -32,7 +32,7 @@
     <context:property-placeholder ignore-unresolvable="true" order="2" location="classpath:config-sunms-dev.properties"/>
 
 
-
+    <!-- mobile库数据源  -->
     <bean id="mobileDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driver}"/>
         <property name="url" value="${mobile.jdbc.url}"/>
@@ -46,6 +46,7 @@
         <property name="defaultQueryTimeout" value="3600000"/>
     </bean>
 
+    <!-- log库数据源  -->
     <bean id="logDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driver}"/>
         <property name="url" value="${log.jdbc.url}"/>
