@@ -27,6 +27,7 @@
     <aop:aspectj-autoproxy expose-proxy="true"/>
 
     <!-- idea使用tx命名空间 要注意tx命名空间的引入 idea会使用cache命名空间  -->
+    <!-- 注册BeanFactoryTransactionAttributeSourceAdvisor -->
     <tx:annotation-driven/>
 
     <context:property-placeholder ignore-unresolvable="true" order="2" location="classpath:config-sunms-dev.properties"/>
