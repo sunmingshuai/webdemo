@@ -1,17 +1,17 @@
 package com.github.controller;
 
 
-import com.github.domain.User;
-import com.github.mapper.UserMapper;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.github.domain.User;
+import com.github.mapper.UserMapper;
 
 /**
  *  sql相关语句仅为了测试
@@ -23,6 +23,7 @@ public class UserInfoController {
 
 	@Resource
 	private UserMapper userMapper;
+
 
 	@RequestMapping("/i/{id}")
 	public ModelAndView userInfo(@PathVariable("id") Long id){

@@ -1,13 +1,13 @@
 package com.github.service.impl;
 
 
-import com.github.mapper.UserMapper;
-import com.github.service.TransferService;
+import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
+import com.github.mapper.UserMapper;
+import com.github.service.TransferService;
 
 
 @Service
@@ -20,16 +20,16 @@ public class TransferServiceImpl implements TransferService {
 	@Transactional
 	public boolean transfer(String in, String out, float amount) {
 
-//		userMapper.updateUserBalance(UserMapper.IN,in,100f);
+		userMapper.updateUserBalance(UserMapper.IN,in,100f);
 //		int i = 1 / 0;
-//		userMapper.updateUserBalance(UserMapper.OUT,out,100f);
-//		return true;
+		userMapper.updateUserBalance(UserMapper.OUT,out,100f);
 
 //		return moneyInAndOut(in,out,amount);
-		boolean transfer = moneyInAndOut(in,out,amount);
-		int i = 1/0;
-		return this.moneyInAndOut(in, out, amount);
-
+//		boolean transfer = moneyInAndOut(in,out,amount);
+//		int i = 1/0;
+//		return this.moneyInAndOut(in, out, amount);
+//		return transfer;
+		return true;
 	}
 
 	/**

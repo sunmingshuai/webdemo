@@ -1,25 +1,24 @@
 package com.github.controller;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.github.annotation.LogTip;
 import com.github.domain.User;
 import com.github.mapper.UserMapper;
 import com.github.service.BlogService;
 import com.github.service.impl.BlogServiceImpl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * Created by sunms on 2017/4/26.
  */
-@Service
-@RequestMapping("blog")
+//@Service
+//@RequestMapping("blog")
 public class BlogController {
 
 	@Value("${name}")

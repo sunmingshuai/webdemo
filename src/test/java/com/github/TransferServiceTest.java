@@ -1,7 +1,7 @@
 package com.github;
 
 
-import com.github.service.TransferService;
+import javax.annotation.Resource;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.annotation.Resource;
+import com.github.service.TransferService;
 
 @ContextConfiguration("classpath:spring/*.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -20,7 +20,7 @@ public class TransferServiceTest {
 
 	@Test
 	public void transfer(){
-		boolean transfer = transferService.transfer("sunms", "com/github",100);
+		boolean transfer = transferService.transfer("sunms", "sunmingshuai",100);
 		Assert.assertTrue(transfer);
 	}
 }
