@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.annotation.LogTip;
 import com.github.mapper.UserMapper;
 import com.github.service.TransferService;
 
@@ -18,6 +19,7 @@ public class TransferServiceImpl implements TransferService {
 
 
 	@Transactional
+	@LogTip
 	public boolean transfer(String in, String out, float amount) {
 
 		userMapper.updateUserBalance(UserMapper.IN,in,100f);
