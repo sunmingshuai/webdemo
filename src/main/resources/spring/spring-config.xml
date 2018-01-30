@@ -16,7 +16,7 @@
     http://www.springframework.org/schema/context/spring-context-3.0.xsd
     http://www.springframework.org/schema/aop
     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
-    >
+    default-autowire="byName">
 
     <!-- TODO default-autowire="byName"的作用 -->
     <!-- 父容器 -->
@@ -28,20 +28,20 @@
 
     <!-- idea使用tx命名空间 要注意tx命名空间的引入 idea会使用cache命名空间  -->
     <!-- 注册BeanFactoryTransactionAttributeSourceAdvisor -->
-    <tx:annotation-driven/>
+    <tx:annotation-driven /> <!--mode="aspectj"-->
 
-    <context:property-placeholder ignore-unresolvable="true" order="2" location="classpath:config-sunms-dev.properties"/>
+    <context:property-placeholder order="1"  ignore-unresolvable="true" location="classpath:config-sunms-dev.properties"/>
 
 
     <!-- mobile库数据源  -->
     <bean id="mobileDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="${jdbc.driver}"/>
-        <property name="url" value="${mobile.jdbc.url}"/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/mobile?useUnicode=true&amp;characterEncoding=utf8"/>
         <property name="username" value="${jdbc.user}"/>
         <property name="password" value="${jdbc.password}"/>
 
-        <property name="maxTotal" value="${maxTotal}"/>
-        <property name="maxIdle" value="${maxIdle}"/>
+        <property name="maxTotal" value="20"/>
+        <property name="maxIdle" value="10"/>
         <property name="initialSize" value="5"/>
         <!-- 为了debug正常 把查询最大时间设大点 -->
         <property name="defaultQueryTimeout" value="3600000"/>
@@ -49,7 +49,7 @@
 
     <!-- log库数据源  -->
     <bean id="logDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="${log.jdbc.url}"/>
         <property name="username" value="${jdbc.user}"/>
         <property name="password" value="${jdbc.password}"/>

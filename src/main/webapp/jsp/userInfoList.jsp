@@ -7,6 +7,7 @@
 </head>
 <body>
 
+<input id="userId" value="1">
 
 <c:if test="${user != null}">
     用户名:${user.userName} 邮箱地址:${user.email}
@@ -19,5 +20,12 @@
         </c:forEach>
     </ul>
 </c:if>
+
+<input type="button" id="getUser" name="用户请求">
+
+<script>
+    var userId = $("#userId").val();
+    alert(userId);
+</script>
 </body>
 </html>
