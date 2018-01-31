@@ -70,7 +70,7 @@
 
 
 
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="mobileDataSource"/>
         <!--<property name="transactionFactory" ref="transactionFactory"/>-->
         <property name="configLocation" value="classpath:mybatis-configuration.xml"/>
@@ -84,9 +84,16 @@
     <!--</bean>-->
 
     <!-- 当mapper很多的时候 用自动扫描注册的方式比较方便   低版本的spring对factorybean的处理不好 导致了加载BUG 高版本的可以用的-->
+
+    <!-- BUG: MapperScannerConfigurer是一个BeanDefinitionRegistryPostProcessor(bfpp) 并且加载的优先级比propertyplaceholderconfigurer高
+         如果设置default-autowire="byName" 那么加载MapperScannerConfigurer的时候 会去找MapperScannerConfigurer的非简单属性 按照名称注入
+         所以如果定义SqlSessionFactoryBean的beanName是sqlSessionFactory 而MapperScannerConfigurer有一个非简单属性名也是sqlSessionFactory
+         则会尝试加载该sqlSessionFactory 而该sqlSessionFactory依赖了dataSource 则又去加载该datasource 但datasource有属性是${xxx}的形式
+         还没有被propertyplaceholderconfigurer处理过 造成BUG
+    -->
     <bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.github.mapper"/>
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean"/>
     </bean>
 
 </beans>
