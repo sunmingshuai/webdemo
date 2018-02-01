@@ -1,9 +1,9 @@
 package com.github.mapper;
 
 
-import com.github.domain.User;
-
 import org.apache.ibatis.annotations.Param;
+
+import com.github.domain.User;
 
 /**
  * 方法仅为了测试用
@@ -33,6 +33,8 @@ public interface UserMapper {
 	 * @param type 1:转入,-1:转出
 	 */
 	int updateUserBalance(@Param("type") int type, @Param("userName") String userName, @Param("amount") float amount);
+
+	void updateUser(@Param("user") User user);
 
 	/**
 	 //	 *  分页查询 用pageHelper插件

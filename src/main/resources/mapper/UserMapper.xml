@@ -10,6 +10,7 @@
         <result property="balance" column="balance"/>
         <result property="mobile" column="mobile"/>
         <result property="email" column="email"/>
+        <result property="desc" column="desc"/>
         <result property="fistVisitTime" column="first_visit_time"/>
         <result property="lastVisitTime" column="last_visit_time"/>
         <result property="createTime" column="create_time"/>
@@ -17,7 +18,7 @@
     </resultMap>
 
     <sql id="user_columns">
-        id,user_name,balance,mobile,email,first_visit_time,last_visit_time,create_time,update_time
+        id,user_name,balance,mobile,email,`desc`,first_visit_time,last_visit_time,create_time,update_time
     </sql>
 
     <select id="selectUserById" parameterType="long" resultMap="UserMapper">
@@ -40,6 +41,17 @@
             </if>
         </set>
         WHERE user_name = #{userName}
+    </update>
+
+    <update id="updateUser" parameterType="com.github.domain.User">
+        UPDATE user
+        <set>
+            update_time = now(),
+            <if test="user.desc != null">
+              `desc` = #{user.desc}
+            </if>
+        </set>
+        where id = #{user.id}
     </update>
 
 </mapper>

@@ -4,47 +4,65 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
 	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-  <display-name>sunmingshuai</display-name>
+    <display-name>sunmingshuai</display-name>
 
-  <!-- 父容器 -->
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>classpath*:spring/*.xml</param-value>
-  </context-param>
+    <!-- 父容器 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:spring/*.xml</param-value>
+    </context-param>
 
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
-  <!-- 子容器 -->
-  <servlet>
-    <servlet-name>springmvc</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
+    <!-- 子容器 -->
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
-  <!-- ／ 或者 ／* 有什么区别 -->
-  <!-- /* 为什么不行 :又拦截了返回的页面请求 -->
-  <servlet-mapping>
-    <servlet-name>springmvc</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
+    <!-- ／ 或者 ／* 有什么区别 -->
+    <!-- /* 为什么不行 :又拦截了返回的页面请求 -->
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
-  <jsp-config>
-    <taglib>
-      <taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
-      <taglib-location>/WEB-INF/tld/c.tld</taglib-location>
-    </taglib>
-    <taglib>
-      <taglib-uri>http://java.sun.com/jsp/jstl/fmt</taglib-uri>
-      <taglib-location>/WEB-INF/tld/fmt.tld</taglib-location>
-    </taglib>
-    <taglib>
-      <taglib-uri>http://java.sun.com/jsp/jstl/fn</taglib-uri>
-      <taglib-location>/WEB-INF/tld/fmt.tld</taglib-location>
-    </taglib>
-  </jsp-config>
+    <!-- 静态资源的访问方式一  利用默认的servlet: defaultServlet处理-->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>resources/*.js</url-pattern>
+    </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>resources/*.html</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>resources/*.css</url-pattern>
+    </servlet-mapping>
+
+    <!--静态资源的访问方式二 利用spring提供的mvc:resources命名空间-->
+    <!--见springmvc-servlet.xml文件配置-->
+
+    <jsp-config>
+        <taglib>
+            <taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
+            <taglib-location>/WEB-INF/tld/c.tld</taglib-location>
+        </taglib>
+        <taglib>
+            <taglib-uri>http://java.sun.com/jsp/jstl/fmt</taglib-uri>
+            <taglib-location>/WEB-INF/tld/fmt.tld</taglib-location>
+        </taglib>
+        <taglib>
+            <taglib-uri>http://java.sun.com/jsp/jstl/fn</taglib-uri>
+            <taglib-location>/WEB-INF/tld/fmt.tld</taglib-location>
+        </taglib>
+    </jsp-config>
 
 
 </web-app>

@@ -4,10 +4,10 @@
 <html>
 <head>
     <title>用户列表</title>
+    <%--<link rel="stylesheet" href="/webjars/jquery/3.2.1/dist/jquery.min.js">--%>
 </head>
+<script src='/resources/js/jquery-2.1.4.js'></script>
 <body>
-
-<input id="userId" value="1">
 
 <c:if test="${user != null}">
     用户名:${user.userName} 邮箱地址:${user.email}
@@ -21,11 +21,18 @@
     </ul>
 </c:if>
 
-<input type="button" id="getUser" name="用户请求">
-
-<script>
-    var userId = $("#userId").val();
-    alert(userId);
+<button id="btn" name="发请求" value="发请求">发请求</button>
+<div id="result"></div>
+<script type="text/javascript">
+    $("#btn").click(function () {
+        $.ajax("", {
+            success: function (data) {
+                $("#result").html(data.user.desc);
+                //$("#result").text(data.user.desc);
+            }
+        })
+    });
 </script>
+
 </body>
 </html>

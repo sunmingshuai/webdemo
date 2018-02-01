@@ -9,6 +9,7 @@ public class User {
 	private float balance;
 	private String mobile;
 	private String email;
+	private String desc;
 	private Date fistVisitTime;
 	private Date lastVisitTime;
 	private Date createTime;
@@ -53,6 +54,14 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 
 	public Date getFistVisitTime() {
